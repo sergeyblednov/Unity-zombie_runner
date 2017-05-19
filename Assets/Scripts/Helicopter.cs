@@ -5,15 +5,24 @@ using UnityEngine;
 public class Helicopter : MonoBehaviour {
 
 	public AudioClip callSound;
-	private bool called = false;
 
-	void Update () {
-		if (Input.GetButtonDown("CallHeli") && !called) {
+	private bool called = false;
+	Rigidbody rigitbody;
+	AudioSource source;
+
+	void Start () {
+		AudioSource source = GetComponent<AudioSource> ();
+		rigitbody = GetComponent<Rigidbody> ();
+	}
+
+	public void Call () {
+		if (!called) {
 			called = true;
 			print ("Helicopter called");
-			AudioSource source = GetComponent<AudioSource> ();
+			source = GetComponent<AudioSource> ();
 			source.clip = callSound;
 			source.Play ();
+			rigitbody.velocity = new Vector3 (0, 0, 50f);
 		}
 	}
 }
